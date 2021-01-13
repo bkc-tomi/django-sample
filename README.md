@@ -8,7 +8,7 @@
     ├── docker-compose.yml  
     └── web  
         ├── Dockerfile  
-        └── requirements.txt
+        └── requirements.txt  
 
 2. コンテナのビルド  
     docker-compose build
