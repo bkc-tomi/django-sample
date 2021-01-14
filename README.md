@@ -26,6 +26,17 @@
     python3 manage.py runserver 0.0.0.0:8000  
     必要に応じてdocker-compose.ymlに記述しても良い    
 
+### プロジェクト
+初めて Django を使うのなら、最初のセットアップを行う必要があります。通常は、 Django の プロジェクト (project) を構成するコードを自動生成します。プロジェクトとは、データベースの設定や Django 固有のオプション、アプリケーション固有の設定などといった、個々の Django インスタンスの設定を集めたものです。  
+`django-admin startproject django_app`  
+django_app -> プロジェクト  
+
+###  アプリケーション
+Django 内に追加する各アプリケーションは、所定の規約に従った Python パッケージで構成されます。 Django には基本的なディレクトリ構造を自動生成するユーティリティが含まれているので、ディレクトリを作ることではなくコードを書くことに集中できます。   
+`python manage.py startapp polls`  
+polls      -> アプリケーション  
+
+
 # Djangoの構成
 
 - モデル層  
