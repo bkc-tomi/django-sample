@@ -25,3 +25,53 @@
 6. コンテナ内からDjangoを起動  
     python3 manage.py runserver 0.0.0.0:8000  
     必要に応じてdocker-compose.ymlに記述しても良い    
+
+# Djangoの構成
+
+- モデル層  
+    モデルは、データに関する唯一かつ決定的な情報源です。あなたが保持するデータが必要とするフィールドとその動作を定義します。一般的に、各モデルは単一のデータベースのテーブルに対応付けられます。 
+    基本:  
+
+    - モデルは各々 Python のクラスであり django.db.models.Model のサブクラスです。  
+    - モデルの属性はそれぞれがデータベースのフィールドを表します。  
+    - これら全てを用いて、Django はデータベースにアクセスする自動生成された API を提供します。 クエリを作成する を参照してください。  
+
+    簡単な例  
+    ```python   
+    from django.db import models
+
+    class Person(models.Model):
+        first_name = models.CharField(max_length=30)
+        last_name = models.CharField(max_length=30)
+    ```
+
+- ビュー層  
+    Django には「ビュー (views)」と呼ばれる概念があります。ビューは、ユーザーリクエストを処理してレスポンスを返すロジックをカプセル化したものです。以下のリンクから、ビューの詳細を学びましょう。  
+
+- テンプレート層  
+    テンプレート層は、ユーザに表示される情報をレンダリングするための、デザイナーにも書きやすい構文を提供します。デザイナーによるテンプレートの構文の使い方や、プログラマーが構文を拡張する方法について学びましょう。  
+
+    ```python
+    {% extends "base_generic.html" %}
+
+    {% block title %}{{ section.title }}{% endblock %}
+
+    {% block content %}
+    <h1>{{ section.title }}</h1>
+
+    {% for story in story_list %}
+    <h2>
+    <a href="{{ story.get_absolute_url }}">
+        {{ story.headline|upper }}
+    </a>
+    </h2>
+    <p>{{ story.tease|truncatewords:"100" }}</p>
+    {% endfor %}
+    {% endblock %}
+    ```
+
+- フォーム  
+    Django には、フォームを簡単に作成したり、フォームに入力されたデータを簡単に操作できるようにしてくれる、多機能なフレームワークがあります。  
+    あなたの作ろうとしているウェブサイトやアプリケーションが、単にコンテンツを公開したり訪問者からのインプットを受け付けないサイトでない限り、フォームを理解し利用する必要があります。  
+
+    Django はフォームの構築を助けるさまざまなツールやライブラリを提供しています。これらを利用することで、サイト訪問者からデータの入力を受け入れ、そのデータを処理したあと、入力に応じたレスポンスを返すことができるようになります。  
