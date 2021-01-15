@@ -37,7 +37,7 @@ Django 内に追加する各アプリケーションは、所定の規約に従�
 polls      -> アプリケーション  
 
 
-# Djangoの構成
+### Djangoの構成
 
 - モデル層  
     モデルは、データに関する唯一かつ決定的な情報源です。あなたが保持するデータが必要とするフィールドとその動作を定義します。一般的に、各モデルは単一のデータベースのテーブルに対応付けられます。 
@@ -86,3 +86,26 @@ polls      -> アプリケーション
     あなたの作ろうとしているウェブサイトやアプリケーションが、単にコンテンツを公開したり訪問者からのインプットを受け付けないサイトでない限り、フォームを理解し利用する必要があります。  
 
     Django はフォームの構築を助けるさまざまなツールやライブラリを提供しています。これらを利用することで、サイト訪問者からデータの入力を受け入れ、そのデータを処理したあと、入力に応じたレスポンスを返すことができるようになります。  
+
+
+### マイグレーション
+1. models.pyでテーブル構造を定義  
+    ```python
+    from django.db import models
+
+    class Question(models.Model):
+        quesiton_text = models.CharField(max_length = 200)
+        pub_date      = models.DateTimeField('date_published')
+
+    class Choice(models.Model):
+        question    = models.ForeignKey(Question, on_delete=models.CASCADE)
+        choice_text = models.CharField(max_length=200)
+        votes       = models.IntegerField(default=0)
+    ```
+2. マイグレーションの作成  
+    `python manage.py makemigrations polls`  
+3. SQL文の作成  
+    `python manage.py sqlmigrate polls 0001`  
+4. マイグレーションの実行  
+    `python manage.py migrate`  
+

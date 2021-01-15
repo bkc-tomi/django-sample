@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'polls.apps.PollsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -75,12 +76,12 @@ WSGI_APPLICATION = 'django_app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'testuser',
-        'PASSWORD': 'test',
-        'HOST': 'db',
-        'PORT': 5432,
+        'ENGINE'   : 'django.db.backends.postgresql_psycopg2',
+        'NAME'     : 'django',
+        'USER'     : 'testuser',
+        'PASSWORD' : 'test',
+        'HOST'     : 'db',
+        'PORT'     : 5432,
     }
 }
 
