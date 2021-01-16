@@ -11,7 +11,7 @@ from django.utils import timezone
 class Question(models.Model):
     """
     ----------------------------------------------------------------------
-    プロパティ
+    インスタンス変数
     ----------------------------------------------------------------------
     テーブルカラムのモデルを定義
 
@@ -45,9 +45,6 @@ class Question(models.Model):
     ----------------------------------------------------------------------
     """
     def was_published_recently(self):
-        print(self.pub_date)
-        print(timezone.now())
-        print(datetime.timedelta(days=1))
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
  
@@ -59,7 +56,7 @@ class Question(models.Model):
 class Choice(models.Model):
     """
     ----------------------------------------------------------------------
-    プロパティ
+    インスタンス変数
     ----------------------------------------------------------------------
     テーブルカラムのモデルを定義
     
@@ -81,7 +78,6 @@ class Choice(models.Model):
 
     ----------------------------------------------------------------------
     """
-    # 出力の際に呼び出される
     def __str__(self):
         return self.choice_text
 
