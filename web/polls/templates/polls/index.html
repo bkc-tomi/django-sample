@@ -10,7 +10,7 @@
     {% if latest_question_list %}
         <ul>
         {% for question in latest_question_list %}
-            <li><a href="{% url 'detail' question.id %}">{{ question.question_text }}</a></li>
+            <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
         {% endfor %}
         </ul>
     {% else %}
@@ -25,7 +25,8 @@
                 <tr>
                     <td>{{ question.question_text }}</td>
                     <td>{{ question.pub_date }}</td>
-                    <td><a href="/polls/{{ question.id }}">詳細</a></td>
+                    <td><a href="{% url 'polls:detail' question.id %}">投票</a></td>
+                    <td><a href="{% url 'polls:result' question.id %}">投票結果</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -1,10 +1,11 @@
 from django.http      import Http404
 from django.shortcuts import render
-from django.http      import HttpResponse
+from django.http      import HttpResponse, HttpResponseRedirect
 from django.template  import loader
+from django.urls      import reverse
 
 # モデルのインポート
-from .models import Question
+from .models import Choice, Question
 
 """
 ---------------------------------------------------------------------
@@ -12,7 +13,12 @@ from .models import Question
 ---------------------------------------------------------------------
 """
 def index(request):
-    latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    try:
+        latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    
+    except Question.DoesNotExist:
+        raise Http404("Question does not exist")
+
     context = {
         'latest_question_list': latest_question_list,
     }
@@ -35,17 +41,49 @@ def detail(request, question_id):
 
 """
 ---------------------------------------------------------------------
-質問一覧
+投票結果
 ---------------------------------------------------------------------
 """
 def result(request, question_id):
-    response = "You're looking at the results of question %s."
-    return HttpResponse(response % question_id)
+    try:
+        question = Question.objects.get(pk=question_id)
+    except Question.DoesNotExist:
+        raise Http404("Question does not exist")
+
+    return render(request, 'polls/result.html', {'question': question})
+
 
 """
 ---------------------------------------------------------------------
-質問一覧
+投票
 ---------------------------------------------------------------------
 """
 def vote(request, question_id):
-    return HttpResponse("You're voting on question %s." % question_id)
+    # 質問の取得
+    try:
+        question = Question.objects.get(pk=question_id)
+
+    except Question.DoesNotExist:
+        raise Http404("Question does not exist")
+
+    # POSTされた選択肢の取得
+    try:
+        choice_key = request.POST['choice']
+        selected_choice = question.choice_set.get(pk=choice_key)
+
+    except (KeyError, Choice.DoesNotExist):
+        return render(
+            request,
+            'polls/detail.html',
+            {
+                'question': question,
+                'error_message': "You didn't select a choice.",
+            }
+        )
+    
+    # 投票数の変更
+    else:
+        selected_choice.votes += 1
+        selected_choice.save()
+
+        return HttpResponseRedirect(reverse('polls:result', args=(question_id, )))
