@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>{{ question.question_text }}</h1>
+    <table>
+    <tbody>
+        {% for choice in question.choice_set.all %}
+        <tr>
+            <td>{{ choice.choice_text }}</td>
+            <td> -- </td>
+            <td>{{ choice.votes }} vote{{ choice.votes|pluralize }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+
+    <a href="{% url 'polls:detail' question.id %}">Vote again?</a>
+    <a href="{% url 'polls:index' %}">Question List</a>
+</body>
+</html>
