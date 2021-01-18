@@ -108,3 +108,17 @@ polls      -> アプリケーション
     `python manage.py sqlmigrate polls 0001`  
 4. マイグレーションの実行  
     `python manage.py migrate`  
+
+*django.urls.reverse*
+Django の urls に設定された名前をパラメータとして渡すと、URLを返す。
+```python
+urlpatterns = [
+    url('send_mail/', send_mail_view, name="send_mail"),
+    url('item/<pk>/', item_detail_view, name="item_detail"),
+]
+
+reverse("sampleapp:send_mail")
+# /send_mail/ を返す
+```
+テストではテスト専用のデータベースが作られそこで実行される。各テストごとに作成されたレコードを使用してテストを行う。
+各テスト終了ごとにデータベースは空にされる。

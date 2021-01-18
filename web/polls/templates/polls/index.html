@@ -24,7 +24,7 @@
                 {% for question in latest_question_list %}
                 <tr>
                     <td>{{ question.question_text }}</td>
-                    <td>{{ question.pub_date }}</td>
+                    <td>{{ question.pub_date | date:"Y/m/j H:i:s" }}</td>
                     <td><a href="{% url 'polls:detail' question.id %}">投票</a></td>
                     <td><a href="{% url 'polls:result' question.id %}">投票結果</a></td>
                 </tr>
