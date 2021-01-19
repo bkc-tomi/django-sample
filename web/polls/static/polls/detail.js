@@ -1,6 +1,7 @@
 // input[type="radio"]を取得
 const input = document.getElementsByTagName("input");
 
+// ラジオボタン要素を取得
 const radioList = [];
 for (var i=0; i<input.length; i++) {
     var temp = input[i];
@@ -15,6 +16,7 @@ for (var i=0; i<input.length; i++) {
     }
 }
 
+// 本処理
 radioList.forEach(function(e) {
     e.radio.addEventListener("click", function() {
         // 全てのラベルの.checkedクラスを外す
